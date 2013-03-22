@@ -3,37 +3,37 @@
 
 #include <iplugininstallersimple.h>
 
-class InstallerQuick : public IPluginInstallerSimple
+class InstallerQuick : public MOBase::IPluginInstallerSimple
 {
   Q_OBJECT
-  Q_INTERFACES(IPlugin IPluginInstaller IPluginInstallerSimple)
+  Q_INTERFACES(MOBase::IPlugin MOBase::IPluginInstaller MOBase::IPluginInstallerSimple)
 
 public:
 
   InstallerQuick();
 
-  virtual bool init(IOrganizer *moInfo);
+  virtual bool init(MOBase::IOrganizer *moInfo);
   virtual QString name() const;
   virtual QString author() const;
   virtual QString description() const;
-  virtual VersionInfo version() const;
+  virtual MOBase::VersionInfo version() const;
   virtual bool isActive() const;
-  virtual QList<PluginSetting> settings() const;
+  virtual QList<MOBase::PluginSetting> settings() const;
 
   virtual unsigned int priority() const;
   virtual bool isManualInstaller() const;
 
-  virtual bool isArchiveSupported(const DirectoryTree &tree) const;
-  virtual EInstallResult install(QString &modName, DirectoryTree &tree);
+  virtual bool isArchiveSupported(const MOBase::DirectoryTree &tree) const;
+  virtual EInstallResult install(MOBase::GuessedValue<QString> &modName, MOBase::DirectoryTree &tree);
 
 private:
 
-  bool isSimpleArchiveTopLayer(const DirectoryTree::Node *node) const;
-  const DirectoryTree::Node *getSimpleArchiveBase(const DirectoryTree &dataTree) const;
+  bool isSimpleArchiveTopLayer(const MOBase::DirectoryTree::Node *node) const;
+  const MOBase::DirectoryTree::Node *getSimpleArchiveBase(const MOBase::DirectoryTree &dataTree) const;
 
 private:
 
-  const IOrganizer *m_MOInfo;
+  const MOBase::IOrganizer *m_MOInfo;
 
 };
 

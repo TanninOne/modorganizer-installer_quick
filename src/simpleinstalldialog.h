@@ -21,6 +21,7 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 #define SIMPLEINSTALLDIALOG_H
 
 #include <QDialog>
+#include <guessedvalue.h>
 
 namespace Ui {
     class SimpleInstallDialog;
@@ -41,7 +42,7 @@ public:
   * @param preset suggested name for the mod
   * @param parent parent widget
   **/
- explicit SimpleInstallDialog(const QString &preset, QWidget *parent = 0);
+ explicit SimpleInstallDialog(const MOBase::GuessedValue<QString> &preset, QWidget *parent = 0);
   ~SimpleInstallDialog();
 
   /**

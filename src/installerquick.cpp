@@ -6,6 +6,9 @@
 #include <QDialog>
 
 
+using namespace MOBase;
+
+
 InstallerQuick::InstallerQuick()
 {
 }
@@ -106,18 +109,18 @@ bool InstallerQuick::isArchiveSupported(const DirectoryTree &tree) const
 }
 
 
-IPluginInstaller::EInstallResult InstallerQuick::install(QString &modName, DirectoryTree &tree)
+IPluginInstaller::EInstallResult InstallerQuick::install(GuessedValue<QString> &modName, DirectoryTree &tree)
 {
   const DirectoryTree::Node *baseNode = getSimpleArchiveBase(tree);
   if (baseNode != NULL) {
     SimpleInstallDialog dialog(modName, parentWidget());
     if (dialog.exec() == QDialog::Accepted) {
-      modName = dialog.getName();
-      tree = *baseNode;
+      modName.update(dialog.getName(), GUESS_USER);
+      tree = *(baseNode->copy()); // need to make a copy because baseNode points inside tree
       return RESULT_SUCCESS;
     } else {
       if (dialog.manualRequested()) {
-        modName = dialog.getName();
+        modName.update(dialog.getName(), GUESS_USER);
         return RESULT_MANUALREQUESTED;
       } else {
         return RESULT_CANCELED;

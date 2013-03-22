@@ -19,12 +19,24 @@ along with Mod Organizer.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "simpleinstalldialog.h"
 #include "ui_simpleinstalldialog.h"
+#include <QLineEdit>
 
-SimpleInstallDialog::SimpleInstallDialog(const QString &preset, QWidget *parent) :
-  QDialog(parent), ui(new Ui::SimpleInstallDialog), m_Manual(false)
+#include <QComboBox>
+
+using namespace MOBase;
+
+
+SimpleInstallDialog::SimpleInstallDialog(const GuessedValue<QString> &preset, QWidget *parent)
+  : QDialog(parent), ui(new Ui::SimpleInstallDialog), m_Manual(false)
 {
   ui->setupUi(this);
-  ui->nameEdit->setText(preset);
+
+  for (auto iter = preset.variants().begin(); iter != preset.variants().end(); ++iter) {
+    ui->nameCombo->addItem(*iter);
+  }
+
+  ui->nameCombo->setCurrentIndex(ui->nameCombo->findText(preset));
+
   setWindowFlags(windowFlags() & (~Qt::WindowContextHelpButtonHint));
 }
 
@@ -35,7 +47,7 @@ SimpleInstallDialog::~SimpleInstallDialog()
 
 QString SimpleInstallDialog::getName() const
 {
-  return ui->nameEdit->text();
+  return ui->nameCombo->currentText();
 }
 
 void SimpleInstallDialog::on_okBtn_clicked()
