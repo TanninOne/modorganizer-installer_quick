@@ -109,7 +109,8 @@ bool InstallerQuick::isArchiveSupported(const DirectoryTree &tree) const
 }
 
 
-IPluginInstaller::EInstallResult InstallerQuick::install(GuessedValue<QString> &modName, DirectoryTree &tree)
+IPluginInstaller::EInstallResult InstallerQuick::install(GuessedValue<QString> &modName, DirectoryTree &tree,
+                                                         QString&, int&)
 {
   const DirectoryTree::Node *baseNode = getSimpleArchiveBase(tree);
   if (baseNode != NULL) {
