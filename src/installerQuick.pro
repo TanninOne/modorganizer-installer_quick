@@ -7,6 +7,10 @@
 TARGET = installerQuick
 TEMPLATE = lib
 
+contains(QT_VERSION, "^5.*") {
+  QT += widgets
+}
+
 CONFIG += plugins
 CONFIG += dll
 
@@ -22,3 +26,6 @@ FORMS += \
     simpleinstalldialog.ui
 
 include(../plugin_template.pri)
+
+OTHER_FILES += \
+    installerquick.json
