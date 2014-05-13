@@ -36,7 +36,7 @@ QString InstallerQuick::description() const
 
 VersionInfo InstallerQuick::version() const
 {
-  return VersionInfo(1, 0, 0, VersionInfo::RELEASE_FINAL);
+  return VersionInfo(1, 1, 0, VersionInfo::RELEASE_FINAL);
 }
 
 bool InstallerQuick::isActive() const
@@ -48,6 +48,7 @@ QList<PluginSetting> InstallerQuick::settings() const
 {
   QList<PluginSetting> result;
   result.push_back(PluginSetting("enabled", "check to enable this plugin", QVariant(true)));
+  result.push_back(PluginSetting("silent", "simple plugins will be installed without any user interaction", QVariant(false)));
   return result;
 }
 
@@ -115,7 +116,7 @@ IPluginInstaller::EInstallResult InstallerQuick::install(GuessedValue<QString> &
   const DirectoryTree::Node *baseNode = getSimpleArchiveBase(tree);
   if (baseNode != NULL) {
     SimpleInstallDialog dialog(modName, parentWidget());
-    if (dialog.exec() == QDialog::Accepted) {
+    if (m_MOInfo->pluginSetting(name(), "silent").toBool() || dialog.exec() == QDialog::Accepted) {
       modName.update(dialog.getName(), GUESS_USER);
       tree = *(baseNode->copy()); // need to make a copy because baseNode points inside tree
       return RESULT_SUCCESS;
