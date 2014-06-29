@@ -38,6 +38,7 @@ SimpleInstallDialog::SimpleInstallDialog(const GuessedValue<QString> &preset, QW
   ui->nameCombo->setCurrentIndex(ui->nameCombo->findText(preset));
 
   setWindowFlags(windowFlags() & (~Qt::WindowContextHelpButtonHint));
+  ui->nameCombo->setAutoCompletionCaseSensitivity(Qt::CaseSensitive);
 }
 
 SimpleInstallDialog::~SimpleInstallDialog()
