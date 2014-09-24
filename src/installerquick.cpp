@@ -10,6 +10,7 @@ using namespace MOBase;
 
 
 InstallerQuick::InstallerQuick()
+  : m_MOInfo(NULL)
 {
 }
 
