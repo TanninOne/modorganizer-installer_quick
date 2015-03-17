@@ -1,0 +1,25 @@
+Import('qt_env')
+
+env = qt_env.Clone()
+
+modules = [
+    'Core',
+    'Gui'
+]
+
+if env['QT_MAJOR_VERSION'] > 4:
+    modules += [ 'Widgets' ]
+
+env.EnableQt4Modules(['Qt' + n for n in modules],
+                     debug = env['CONFIG'] == 'debug')
+
+env.AppendUnique(CPPDEFINES = [ 'INSTALLERQUICK_LIBRARY' ])
+
+# Le sigh
+env['CPPPATH'] += [ '.' ]
+
+env.RequireLibraries('uibase')
+
+env.Uic4(env.Glob('*.ui'))
+lib = env.SharedLibrary('installerQuick', env.Glob('*.cpp'))
+env.InstallPlugin(lib)

@@ -31,4 +31,5 @@ FORMS += \
 include(../plugin_template.pri)
 
 OTHER_FILES += \
-    installerquick.json
+    installerquick.json\
+    SConscript
