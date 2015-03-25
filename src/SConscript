@@ -7,7 +7,7 @@ env.AppendUnique(CPPDEFINES = [ 'INSTALLERQUICK_LIBRARY' ])
 # Le sigh
 env['CPPPATH'] += [ '.' ]
 
-env.Uic4(env.Glob('*.ui'))
+env.Uic(env.Glob('*.ui'))
 
 lib = env.SharedLibrary('installerQuick', env.Glob('*.cpp'))
 env.InstallModule(lib)
