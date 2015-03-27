@@ -10,7 +10,7 @@ using namespace MOBase;
 
 
 InstallerQuick::InstallerQuick()
-  : m_MOInfo(NULL)
+  : m_MOInfo(nullptr)
 {
 }
 
@@ -98,7 +98,7 @@ const DirectoryTree::Node *InstallerQuick::getSimpleArchiveBase(const DirectoryT
       currentNode = *currentNode->nodesBegin();
     } else {
       qDebug("not a simple archive");
-      return NULL;
+      return nullptr;
     }
   }
 }
@@ -107,7 +107,7 @@ const DirectoryTree::Node *InstallerQuick::getSimpleArchiveBase(const DirectoryT
 bool InstallerQuick::isArchiveSupported(const DirectoryTree &tree) const
 {
   const DirectoryTree::Node *baseNode = getSimpleArchiveBase(tree);
-  return baseNode != NULL;
+  return baseNode != nullptr;
 }
 
 
@@ -115,7 +115,7 @@ IPluginInstaller::EInstallResult InstallerQuick::install(GuessedValue<QString> &
                                                          QString&, int&)
 {
   const DirectoryTree::Node *baseNode = getSimpleArchiveBase(tree);
-  if (baseNode != NULL) {
+  if (baseNode != nullptr) {
     SimpleInstallDialog dialog(modName, parentWidget());
     if (m_MOInfo->pluginSetting(name(), "silent").toBool() || dialog.exec() == QDialog::Accepted) {
       modName.update(dialog.getName(), GUESS_USER);
